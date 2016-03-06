@@ -1,6 +1,6 @@
 # Python library for ZFM-20 fingerprint sensor
 
-The PyFingerprint library allows to use the ZhianTec ZFM-20 fingerprint sensor and the Raspberry Pi or other Linux machines.
+The PyFingerprint library allows to use the ZhianTec ZFM-20 fingerprint sensor on the Raspberry Pi or other Linux machines.
 
 **Note:** The library is inspired by the C++ library from Adafruit Industries:  
 <https://github.com/adafruit/Adafruit-Fingerprint-Sensor-Library>
