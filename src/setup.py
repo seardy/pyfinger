@@ -5,7 +5,7 @@ from distutils.core import setup
 
 setup(
     name            = 'PyFingerprint',
-    version         = '1.3', ## Never forget to change module version as well!
+    version         = '1.4', ## Never forget to change module version as well!
     description     = 'Python written library for using the ZFM-20 fingerprint sensor.',
     author          = 'Bastian Raschke',
     author_email    = 'bastian.raschke@posteo.de',

@@ -1,3 +1,9 @@
+python-fingerprint (1.4) stable; urgency=low
+
+  * Fixed template count according to ZFM-20 datasheet
+
+ -- Philipp Meisberger <team@pm-codeworks.de>  Sun, 22 May 2016 20:09:07 +0200
+
 python-fingerprint (1.3) stable; urgency=low
 
   * Added implementation of method "uploadCharacteristics" by David Gilson <davgilson@live.fr>
