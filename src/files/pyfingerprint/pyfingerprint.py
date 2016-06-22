@@ -835,7 +835,7 @@ class PyFingerprint(object):
         ## CharBuffer1 and CharBuffer2 are the same in this case
         charBufferNumber = 0x01
 
-        ## Begin search at page 0x0000 for 0x00A3 (means 163) templates
+        ## Begin search at page 0x0000 for 0x00A3 (means 162) templates
         positionStart = 0x0000
         templatesCount = 0x00A3
 
