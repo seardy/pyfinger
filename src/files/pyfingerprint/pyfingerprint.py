@@ -53,7 +53,7 @@ FINGERPRINT_LOADTEMPLATE = 0x07
 FINGERPRINT_DELETETEMPLATE = 0x0C
 
 FINGERPRINT_CLEARDATABASE = 0x0D
-
+FINGERPRINT_GENERATERANDOMNUMBER = 0x14
 FINGERPRINT_COMPARECHARACTERISTICS = 0x03
 
 ## Note: The documentation mean download from host computer.
@@ -1133,6 +1133,44 @@ class PyFingerprint(object):
             return 256
         else:
             return 32
+
+    def generateRandomNumber(self):
+        """
+        Generates a random 32-bit decimal number.
+
+        @author: Philipp Meisberger <team@pm-codeworks.de>
+
+        @return int
+        The generated random number
+        """
+        packetPayload = (
+            FINGERPRINT_GENERATERANDOMNUMBER,
+        )
+
+        self.__writePacket(FINGERPRINT_COMMANDPACKET, packetPayload)
+        receivedPacket = self.__readPacket()
+
+        receivedPacketType = receivedPacket[0]
+        receivedPacketPayload = receivedPacket[1]
+
+        if ( receivedPacketType != FINGERPRINT_ACKPACKET ):
+            raise Exception('The received packet is no ack packet!')
+
+        if ( receivedPacketPayload[0] == FINGERPRINT_OK ):
+            pass
+
+        elif ( receivedPacketPayload[0] == FINGERPRINT_ERROR_COMMUNICATION ):
+            raise Exception('Communication error')
+
+        else:
+            raise Exception('Unknown error')
+
+        number = 0
+        number = number | utilities.leftShift(receivedPacketPayload[1], 24)
+        number = number | utilities.leftShift(receivedPacketPayload[2], 16)
+        number = number | utilities.leftShift(receivedPacketPayload[3], 8)
+        number = number | utilities.leftShift(receivedPacketPayload[4], 0)
+        return number
 
     def downloadCharacteristics(self, charBufferNumber = 0x01):
         """
