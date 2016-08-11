@@ -783,7 +783,7 @@ class PyFingerprint(object):
         @return boolean
         """
 
-        if ( positionNumber < 0x0000 or positionNumber > 0x00A3 ):
+        if ( positionNumber < 0x0000 or positionNumber >= self.getStorageCapacity() ):
             raise ValueError('The given position number is invalid!')
 
         if ( charBufferNumber != 0x01 and charBufferNumber != 0x02 ):
@@ -835,9 +835,9 @@ class PyFingerprint(object):
         ## CharBuffer1 and CharBuffer2 are the same in this case
         charBufferNumber = 0x01
 
-        ## Begin search at page 0x0000 for 0x00A3 (means 162) templates
+        ## Begin search at index 0
         positionStart = 0x0000
-        templatesCount = 0x00A3
+        templatesCount = self.getStorageCapacity()
 
         packetPayload = (
             FINGERPRINT_SEARCHTEMPLATE,
@@ -887,7 +887,7 @@ class PyFingerprint(object):
         @return boolean
         """
 
-        if ( positionNumber < 0x0000 or positionNumber > 0x00A3 ):
+        if ( positionNumber < 0x0000 or positionNumber >= self.getStorageCapacity() ):
             raise ValueError('The given position number is invalid!')
 
         if ( charBufferNumber != 0x01 and charBufferNumber != 0x02 ):
@@ -933,7 +933,7 @@ class PyFingerprint(object):
         @return boolean
         """
 
-        if ( positionNumber < 0x0000 or positionNumber > 0x00A3 ):
+        if ( positionNumber < 0x0000 or positionNumber >= self.getStorageCapacity() ):
             raise ValueError('The given position number is invalid!')
 
         ## Delete only one template
@@ -1133,6 +1133,16 @@ class PyFingerprint(object):
             return 256
         else:
             return 32
+
+    def getStorageCapacity(self):
+        """
+        Gets the sensor storage capacity.
+
+        @return int
+        The storage capacity.
+        """
+
+        return self.getSystemParameters()[2]
 
     def generateRandomNumber(self):
         """

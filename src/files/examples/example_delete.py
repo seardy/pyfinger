@@ -29,7 +29,7 @@ except Exception as e:
     exit(1)
 
 ## Gets some sensor information
-print('Currently stored templates: ' + str(f.getTemplateCount()))
+print('Currently used templates: ' + str(f.getTemplateCount()) +'/'+ str(f.getStorageCapacity()))
 
 ## Tries to delete the template of the finger
 try:
