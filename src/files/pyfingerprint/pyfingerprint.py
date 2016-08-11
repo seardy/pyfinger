@@ -774,7 +774,7 @@ class PyFingerprint(object):
         else:
             raise Exception('Unknown error')
 
-    def storeTemplate(self, positionNumber, charBufferNumber = 0x01):
+    def storeTemplate(self, positionNumber = -1, charBufferNumber = 0x01):
         """
         Save a template from the specified CharBuffer to the given position number.
 
@@ -782,6 +782,24 @@ class PyFingerprint(object):
         @param integer(1 byte) charBufferNumber
         @return boolean
         """
+
+        found = False
+
+        ## Find a free index
+        if ( positionNumber == -1 ):
+            for page in range(0, 4):
+                ## Free index found?
+                if ( positionNumber >= 0 ):
+                    break
+
+                templateIndex = self.getTemplateIndex(page)
+
+                for i in range(0, len(templateIndex)):
+                    ## Index not used?
+                    if ( templateIndex[i] == False ):
+                        positionNumber = i
+                        found = True
+                        break
 
         if ( positionNumber < 0x0000 or positionNumber >= self.getStorageCapacity() ):
             raise ValueError('The given position number is invalid!')
@@ -807,7 +825,11 @@ class PyFingerprint(object):
 
         ## DEBUG: Template stored successful
         if ( receivedPacketPayload[0] == FINGERPRINT_OK ):
-            return True
+            ## Return index when positionNumber was -1
+            if ( found == True ):
+                return positionNumber
+            else:
+                return True
 
         elif ( receivedPacketPayload[0] == FINGERPRINT_ERROR_COMMUNICATION ):
             raise Exception('Communication error')
