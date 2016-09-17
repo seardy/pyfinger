@@ -780,10 +780,10 @@ class PyFingerprint(object):
 
         @param integer(2 bytes) positionNumber
         @param integer(1 byte) charBufferNumber
-        @return boolean
+        @return integer
         """
 
-        found = False
+        freeIndexfound = False
 
         ## Find a free index
         if ( positionNumber == -1 ):
@@ -798,7 +798,7 @@ class PyFingerprint(object):
                     ## Index not used?
                     if ( templateIndex[i] == False ):
                         positionNumber = i
-                        found = True
+                        freeIndexfound = True
                         break
 
         if ( positionNumber < 0x0000 or positionNumber >= self.getStorageCapacity() ):
@@ -825,11 +825,7 @@ class PyFingerprint(object):
 
         ## DEBUG: Template stored successful
         if ( receivedPacketPayload[0] == FINGERPRINT_OK ):
-            ## Return index when positionNumber was -1
-            if ( found == True ):
-                return positionNumber
-            else:
-                return True
+            return positionNumber
 
         elif ( receivedPacketPayload[0] == FINGERPRINT_ERROR_COMMUNICATION ):
             raise Exception('Communication error')
