@@ -783,8 +783,6 @@ class PyFingerprint(object):
         @return integer
         """
 
-        freeIndexfound = False
-
         ## Find a free index
         if ( positionNumber == -1 ):
             for page in range(0, 4):
@@ -798,7 +796,6 @@ class PyFingerprint(object):
                     ## Index not used?
                     if ( templateIndex[i] == False ):
                         positionNumber = i
-                        freeIndexfound = True
                         break
 
         if ( positionNumber < 0x0000 or positionNumber >= self.getStorageCapacity() ):

@@ -67,10 +67,8 @@ try:
 
     ## Saves template at new position number
     positionNumber = f.storeTemplate()
-
-    if ( positionNumber != None ):
-        print('Finger enrolled successfully!')
-        print('New template position #' + str(positionNumber))
+    print('Finger enrolled successfully!')
+    print('New template position #' + str(positionNumber))
 
 except Exception as e:
     print('Operation failed!')
