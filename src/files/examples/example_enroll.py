@@ -65,13 +65,10 @@ try:
     ## Compares the charbuffers and creates a template
     f.createTemplate()
 
-    ## Gets new position number (the counting starts at 0, so we do not need to increment)
-    positionNumber = f.getTemplateCount()
-
     ## Saves template at new position number
-    if ( f.storeTemplate(positionNumber) == True ):
-        print('Finger enrolled successfully!')
-        print('New template position #' + str(positionNumber))
+    positionNumber = f.storeTemplate()
+    print('Finger enrolled successfully!')
+    print('New template position #' + str(positionNumber))
 
 except Exception as e:
     print('Operation failed!')
