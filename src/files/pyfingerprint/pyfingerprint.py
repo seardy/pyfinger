@@ -795,7 +795,7 @@ class PyFingerprint(object):
                 for i in range(0, len(templateIndex)):
                     ## Index not used?
                     if ( templateIndex[i] == False ):
-                        positionNumber = i
+                        positionNumber = (256 * page) + i
                         break
 
         if ( positionNumber < 0x0000 or positionNumber >= self.getStorageCapacity() ):
