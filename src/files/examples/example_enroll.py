@@ -63,7 +63,15 @@ try:
     f.convertImage(0x02)
 
     ## Compares the charbuffers and creates a template
-    f.createTemplate()
+    similarity = f.compareCharacteristics()
+    if similarity > 50:
+        f.createTemplate()
+        ## Saves template at new position number
+        positionNumber = f.storeTemplate()
+        print('Finger enrolled successfully!')
+        print('New template position #' + str(positionNumber))
+    else:
+        print('Fingerprints do not match')
 
     ## Saves template at new position number
     positionNumber = f.storeTemplate()
