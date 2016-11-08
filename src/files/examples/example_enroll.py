@@ -63,8 +63,7 @@ try:
     f.convertImage(0x02)
 
     ## Compares the charbuffers and creates a template
-    similarity = f.compareCharacteristics()
-    if similarity > 50:
+    if f.compareCharacteristics() != 0:
         f.createTemplate()
         ## Saves template at new position number
         positionNumber = f.storeTemplate()
