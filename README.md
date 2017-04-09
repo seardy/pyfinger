@@ -20,7 +20,7 @@ Than clone this repository:
 Build the package:
 
     ~$ cd ./pyfingerprint/src/
-    ~$ debuild
+    ~$ dpkg-buildpackage -uc -us
 
 ## Installation
 
