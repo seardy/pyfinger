@@ -4,14 +4,31 @@ Section: python
 Priority: optional
 Standards-Version: 3.9.6
 Build-Depends: debhelper (>= 9),
-               python (>= 2.7)
+               dh-python,
+               python (>= 2.7),
+               python3 (>= 3.2),
+               python-setuptools,
+               python3-setuptools
+XS-Python-Version: all
+X-Python3-Version: >= 3.2
+Vcs-Git: https://github.com/bastianraschke/pyfingerprint.git
 Homepage: https://sicherheitskritisch.de
 
 Package: python-fingerprint
-Depends: python (>= 2.7),
+Depends: ${python:Depends},
+         ${misc:Depends},
          python-serial,
-         python-pil,
-         ${python:Depends}, ${misc:Depends}
+         python-pil
+Architecture: all
+Description: Python written library for using the ZFM-20 fingerprint sensor
+ This library is required for using the ZhianTec ZFM-20 fingerprint sensor
+ (known as "Arduino fingerprint sensor") in Python.
+
+Package: python3-fingerprint
+Depends: ${python3:Depends},
+         ${misc:Depends},
+         python3-serial,
+         python3-pil
 Architecture: all
 Description: Python written library for using the ZFM-20 fingerprint sensor
  This library is required for using the ZhianTec ZFM-20 fingerprint sensor
