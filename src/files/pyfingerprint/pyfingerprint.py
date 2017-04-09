@@ -12,8 +12,7 @@ All rights reserved.
 import os
 import serial
 from PIL import Image
-
-import utilities
+from pyfingerprint import utilities
 
 
 ## Baotou start byte
