@@ -10,7 +10,7 @@ Homepage: https://sicherheitskritisch.de
 Package: python-fingerprint
 Depends: python (>= 2.7),
          python-serial,
-         python-imaging,
+         python-pil,
          ${python:Depends}, ${misc:Depends}
 Architecture: all
 Description: Python written library for using the ZFM-20 fingerprint sensor

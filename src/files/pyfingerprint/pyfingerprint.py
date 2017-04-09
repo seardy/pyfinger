@@ -11,7 +11,7 @@ All rights reserved.
 
 import os
 import serial
-import Image
+from PIL import Image
 
 import utilities
 
