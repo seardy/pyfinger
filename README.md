@@ -41,19 +41,19 @@ Allow non-root user "pi" (replace it correctly) to use the serial port devices:
 
 ### Enroll a new finger
 
-    ~$ python2 /usr/share/doc/python-fingerprint/examples/example_enroll.py
+    ~$ python /usr/share/doc/python-fingerprint/examples/example_enroll.py
 
 ### Search an enrolled finger
 
-    ~$ python2 /usr/share/doc/python-fingerprint/examples/example_search.py
+    ~$ python /usr/share/doc/python-fingerprint/examples/example_search.py
 
 ### Delete an enrolled finger
 
-    ~$ python2 /usr/share/doc/python-fingerprint/examples/example_delete.py
+    ~$ python /usr/share/doc/python-fingerprint/examples/example_delete.py
 
 ### Download image of a scanned finger
 
-    ~$ python2 /usr/share/doc/python-fingerprint/examples/example_downloadimage.py
+    ~$ python /usr/share/doc/python-fingerprint/examples/example_downloadimage.py
 
 ## Questions
 
