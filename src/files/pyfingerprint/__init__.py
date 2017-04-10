@@ -9,4 +9,4 @@ All rights reserved.
 @author: Bastian Raschke <bastian.raschke@posteo.de>
 """
 
-__version__ = '1.4'
+__version__ = '1.5'
