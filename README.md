@@ -24,7 +24,13 @@ Build the package:
 
 ## Installation
 
-Install the built Debian package:
+PyFingerprint supports Python2 and Python3. There are one Debian package for each. It's up to you which version you install.
+
+For Python3 use:
+
+    ~$ sudo dpkg -i ../python3-fingerprint*.deb
+
+For Python2 use
 
     ~$ sudo dpkg -i ../python-fingerprint*.deb
 
