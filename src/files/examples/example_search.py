@@ -62,7 +62,7 @@ try:
     f.loadTemplate(positionNumber, 0x01)
 
     ## Downloads the characteristics of template loaded in charbuffer 1
-    characterics = str(f.downloadCharacteristics(0x01))
+    characterics = str(f.downloadCharacteristics(0x01)).encode('utf-8')
 
     ## Hashes characteristics of template
     print('SHA-2 hash of template: ' + hashlib.sha256(characterics).hexdigest())
