@@ -9,7 +9,6 @@ All rights reserved.
 @author: Philipp Meisberger <team@pm-codeworks.de>
 """
 
-import time
 from pyfingerprint.pyfingerprint import PyFingerprint
 
 
