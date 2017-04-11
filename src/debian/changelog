@@ -1,7 +1,6 @@
 python-fingerprint (1.5) UNRELEASED; urgency=medium
 
-  * Added support for Python3
-    * Still compatible with Python2
+  * Added support for Python3 (still compatible with Python2)
   * storeTemplate() can be used without arguments
     * The template is stored at the next free index automatically
     * BREAKING CHANGE: The index is returned! In previous releases this was a boolean value.
