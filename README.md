@@ -61,6 +61,10 @@ Allow non-root user "pi" (replace it correctly) to use the serial port devices:
 
     ~$ python /usr/share/doc/python-fingerprint/examples/example_downloadimage.py
 
+### Generate a 32-bit random number on the ZFM hardware PRNG
+
+    ~$ python /usr/share/doc/python-fingerprint/examples/example_generaterandom.py
+
 ## Questions
 
 If you have any questions to this project, just ask me via email:
