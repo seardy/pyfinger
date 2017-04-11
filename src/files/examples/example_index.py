@@ -32,7 +32,7 @@ print('Currently used templates: ' + str(f.getTemplateCount()) +'/'+ str(f.getSt
 
 ## Tries to show a template index table page
 try:
-    page = raw_input('Please enter the index page (0, 1, 2, 3) you want to see: ')
+    page = input('Please enter the index page (0, 1, 2, 3) you want to see: ')
     page = int(page)
 
     tableIndex = f.getTemplateIndex(page)

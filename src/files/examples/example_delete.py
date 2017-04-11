@@ -33,7 +33,7 @@ print('Currently used templates: ' + str(f.getTemplateCount()) +'/'+ str(f.getSt
 
 ## Tries to delete the template of the finger
 try:
-    positionNumber = raw_input('Please enter the template position you want to delete: ')
+    positionNumber = input('Please enter the template position you want to delete: ')
     positionNumber = int(positionNumber)
 
     if ( f.deleteTemplate(positionNumber) == True ):
