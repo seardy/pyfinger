@@ -6,13 +6,13 @@ PyFingerprint
 Copyright (C) 2015 Bastian Raschke <bastian.raschke@posteo.de>
 All rights reserved.
 
-@author: Bastian Raschke <bastian.raschke@posteo.de>
+@author: Philipp Meisberger <team@pm-codeworks.de>
 """
 
 from pyfingerprint.pyfingerprint import PyFingerprint
 
 
-## Shows the template index table
+## Generates a 32-bit random number
 ##
 
 ## Tries to initialize the sensor
@@ -27,18 +27,9 @@ except Exception as e:
     print('Exception message: ' + str(e))
     exit(1)
 
-## Gets some sensor information
-print('Currently used templates: ' + str(f.getTemplateCount()) +'/'+ str(f.getStorageCapacity()))
-
-## Tries to show a template index table page
+## Tries to generate a 32-bit random number
 try:
-    page = input('Please enter the index page (0, 1, 2, 3) you want to see: ')
-    page = int(page)
-
-    tableIndex = f.getTemplateIndex(page)
-
-    for i in range(0, len(tableIndex)):
-        print('Template at position #' + str(i) + ' is used: ' + str(tableIndex[i]))
+    print(f.generateRandomNumber())
 
 except Exception as e:
     print('Operation failed!')

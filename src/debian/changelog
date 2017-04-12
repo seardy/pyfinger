@@ -1,3 +1,16 @@
+python-fingerprint (1.5) UNRELEASED; urgency=medium
+
+  * Added support for Python3 (still compatible with Python2)
+  * storeTemplate() can be used without arguments
+    * The template is stored at the next free index automatically
+    * BREAKING CHANGE: The index is returned! In previous releases this was a
+      boolean value.
+  * Introduced getStorageCapacity() to retrieve the sensor template capacity
+  * Introduced generateRandom() which generates a random number on the builtin
+    hardware PRNG of the ZFM
+
+ -- Philipp Meisberger <team@pm-codeworks.de>  Sun, 09 Apr 2017 21:46:27 +0200
+
 python-fingerprint (1.4) stable; urgency=low
 
   * Fixed template count according to ZFM-20 datasheet

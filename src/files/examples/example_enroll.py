@@ -62,15 +62,12 @@ try:
     ## Converts read image to characteristics and stores it in charbuffer 2
     f.convertImage(0x02)
 
-    ## Compares the charbuffers and creates a template
-    if f.compareCharacteristics() != 0:
-        f.createTemplate()
-        ## Saves template at new position number
-        positionNumber = f.storeTemplate()
-        print('Finger enrolled successfully!')
-        print('New template position #' + str(positionNumber))
-    else:
-        print('Fingerprints do not match')
+    ## Compares the charbuffers
+    if ( f.compareCharacteristics() == 0 ):
+        raise Exception('Fingers do not match')
+
+    ## Creates a template
+    f.createTemplate()
 
     ## Saves template at new position number
     positionNumber = f.storeTemplate()

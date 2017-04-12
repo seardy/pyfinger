@@ -20,11 +20,17 @@ Than clone this repository:
 Build the package:
 
     ~$ cd ./pyfingerprint/src/
-    ~$ debuild
+    ~$ dpkg-buildpackage -uc -us
 
 ## Installation
 
-Install the built Debian package:
+PyFingerprint supports Python2 and Python3. There are one Debian package for each. It's up to you which version you install.
+
+For Python3 use:
+
+    ~$ sudo dpkg -i ../python3-fingerprint*.deb
+
+For Python2 use
 
     ~$ sudo dpkg -i ../python-fingerprint*.deb
 
@@ -41,19 +47,23 @@ Allow non-root user "pi" (replace it correctly) to use the serial port devices:
 
 ### Enroll a new finger
 
-    ~$ python2 /usr/share/doc/python-fingerprint/examples/example_enroll.py
+    ~$ python /usr/share/doc/python-fingerprint/examples/example_enroll.py
 
 ### Search an enrolled finger
 
-    ~$ python2 /usr/share/doc/python-fingerprint/examples/example_search.py
+    ~$ python /usr/share/doc/python-fingerprint/examples/example_search.py
 
 ### Delete an enrolled finger
 
-    ~$ python2 /usr/share/doc/python-fingerprint/examples/example_delete.py
+    ~$ python /usr/share/doc/python-fingerprint/examples/example_delete.py
 
 ### Download image of a scanned finger
 
-    ~$ python2 /usr/share/doc/python-fingerprint/examples/example_downloadimage.py
+    ~$ python /usr/share/doc/python-fingerprint/examples/example_downloadimage.py
+
+### Generate a 32-bit random number on the ZFM hardware PRNG
+
+    ~$ python /usr/share/doc/python-fingerprint/examples/example_generaterandom.py
 
 ## Questions
 

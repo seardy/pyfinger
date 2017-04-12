@@ -11,9 +11,8 @@ All rights reserved.
 
 import os
 import serial
-import Image
-
-import utilities
+from PIL import Image
+import pyfingerprint.utilities as utilities
 
 
 ## Baotou start byte
