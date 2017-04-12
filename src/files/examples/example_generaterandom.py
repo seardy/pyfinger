@@ -3,10 +3,9 @@
 
 """
 PyFingerprint
-Copyright (C) 2015 Bastian Raschke <bastian.raschke@posteo.de>
+Copyright (C) 2017 Philipp Meisberger <team@pm-codeworks.de>
 All rights reserved.
 
-@author: Philipp Meisberger <team@pm-codeworks.de>
 """
 
 from pyfingerprint.pyfingerprint import PyFingerprint

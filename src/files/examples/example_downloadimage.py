@@ -6,7 +6,6 @@ PyFingerprint
 Copyright (C) 2015 Bastian Raschke <bastian.raschke@posteo.de>
 All rights reserved.
 
-@author: Bastian Raschke <bastian.raschke@posteo.de>
 """
 
 import tempfile
