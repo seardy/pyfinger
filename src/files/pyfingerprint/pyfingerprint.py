@@ -228,7 +228,7 @@ class PyFingerprint(object):
 
     def __writePacket(self, packetType, packetPayload):
         """
-        Send a packet to fingerprint sensor.
+        Sends a packet to fingerprint sensor.
 
         @param integer(1 byte) packetType
         @param tuple packetPayload
@@ -267,7 +267,7 @@ class PyFingerprint(object):
 
     def __readPacket(self):
         """
-        Receive a packet from fingerprint sensor.
+        Receives a packet from fingerprint sensor.
 
         Return a tuple that contain the following information:
         0: integer(1 byte) The packet type.
@@ -334,7 +334,7 @@ class PyFingerprint(object):
 
     def verifyPassword(self):
         """
-        Verifie password of the fingerprint sensor.
+        Verifies password of the fingerprint sensor.
 
         @return boolean
         """
@@ -372,7 +372,7 @@ class PyFingerprint(object):
 
     def setPassword(self, newPassword):
         """
-        Set the password of the sensor.
+        Sets the password of the sensor.
 
         @param integer(4 bytes) newPassword
         @return boolean
@@ -411,7 +411,7 @@ class PyFingerprint(object):
 
     def setAddress(self, newAddress):
         """
-        Set the module address of the sensor.
+        Sets the module address of the sensor.
 
         @param integer(4 bytes) newAddress
         @return boolean
@@ -509,7 +509,7 @@ class PyFingerprint(object):
 
     def getSystemParameters(self):
         """
-        Get all available system information of the sensor.
+        Gets all available system information of the sensor.
 
         Return a tuple that contain the following information:
         0: integer(2 bytes) The status register.
@@ -557,7 +557,7 @@ class PyFingerprint(object):
 
     def getTemplateIndex(self, page):
         """
-        Get a list of the template positions with usage indicator.
+        Gets a list of the template positions with usage indicator.
 
         @param integer(1 byte) page
         @return list
@@ -604,7 +604,7 @@ class PyFingerprint(object):
 
     def getTemplateCount(self):
         """
-        Get the number of stored templates.
+        Gets the number of stored templates.
 
         @return integer(2 bytes)
         """
@@ -636,7 +636,7 @@ class PyFingerprint(object):
 
     def readImage(self):
         """
-        Read the image of a finger and stores it in ImageBuffer.
+        Reads the image of a finger and stores it in ImageBuffer.
 
         @return boolean
         """
@@ -676,7 +676,7 @@ class PyFingerprint(object):
 
     def downloadImage(self, imageDestination):
         """
-        Download the image of a finger to host computer.
+        Downloads the image of a finger to host computer.
 
         @param string imageDestination
         @return void
@@ -754,7 +754,7 @@ class PyFingerprint(object):
 
     def convertImage(self, charBufferNumber = 0x01):
         """
-        Convert the image in ImageBuffer to finger characteristics and store in CharBuffer1 or CharBuffer2.
+        Converts the image in ImageBuffer to finger characteristics and store in CharBuffer1 or CharBuffer2.
 
         @param integer(1 byte) charBufferNumber
         @return boolean
@@ -798,7 +798,7 @@ class PyFingerprint(object):
 
     def createTemplate(self):
         """
-        Combine the characteristics which are stored in CharBuffer1 and CharBuffer2 to a template.
+        Combines the characteristics which are stored in CharBuffer1 and CharBuffer2 to a template.
         The created template will be stored again in CharBuffer1 and CharBuffer2 as the same.
 
         @return boolean
@@ -833,7 +833,7 @@ class PyFingerprint(object):
 
     def storeTemplate(self, positionNumber = -1, charBufferNumber = 0x01):
         """
-        Save a template from the specified CharBuffer to the given position number.
+        Saves a template from the specified CharBuffer to the given position number.
 
         @param integer(2 bytes) positionNumber
         @param integer(1 byte) charBufferNumber
@@ -895,7 +895,7 @@ class PyFingerprint(object):
 
     def searchTemplate(self):
         """
-        Search the finger characteristiccs in CharBuffer in database.
+        Searches the finger characteristiccs in CharBuffer in database.
 
         Return a tuple that contain the following information:
         0: integer(2 bytes) The position number of found template.
@@ -952,7 +952,7 @@ class PyFingerprint(object):
 
     def loadTemplate(self, positionNumber, charBufferNumber = 0x01):
         """
-        Load an existing template specified by position number to specified CharBuffer.
+        Loads an existing template specified by position number to specified CharBuffer.
 
         @param integer(2 bytes) positionNumber
         @param integer(1 byte) charBufferNumber
@@ -999,7 +999,7 @@ class PyFingerprint(object):
 
     def deleteTemplate(self, positionNumber):
         """
-        Delete one template from fingerprint database.
+        Deletes one template from fingerprint database.
 
         @param integer(2 bytes) positionNumber
         @return boolean
@@ -1044,7 +1044,7 @@ class PyFingerprint(object):
 
     def clearDatabase(self):
         """
-        Clear the complete template database.
+        Clears the complete template database.
 
         @return boolean
         """
@@ -1078,7 +1078,7 @@ class PyFingerprint(object):
 
     def compareCharacteristics(self):
         """
-        Compare the finger characteristics of CharBuffer1 with CharBuffer2 and return the accuracy score.
+        Compares the finger characteristics of CharBuffer1 with CharBuffer2 and return the accuracy score.
 
         @return integer(2 bytes)
         """
@@ -1096,7 +1096,7 @@ class PyFingerprint(object):
         if ( receivedPacketType != FINGERPRINT_ACKPACKET ):
             raise Exception('The received packet is no ack packet!')
 
-        ## DEBUG: Comparation successful
+        ## DEBUG: Comparison successful
         if ( receivedPacketPayload[0] == FINGERPRINT_OK ):
             accuracyScore = self.__leftShift(receivedPacketPayload[1], 8)
             accuracyScore = accuracyScore | self.__leftShift(receivedPacketPayload[2], 0)
@@ -1114,7 +1114,7 @@ class PyFingerprint(object):
 
     def uploadCharacteristics(self, charBufferNumber = 0x01, characteristicsData = [0]):
         """
-        Upload finger characteristics to CharBuffer1 or CharBuffer2.
+        Uploads finger characteristics to CharBuffer1 or CharBuffer2.
 
         @author: David Gilson <davgilson@live.fr>
 
@@ -1187,7 +1187,7 @@ class PyFingerprint(object):
 
     def getMaxPacketSize(self):
         """
-        Get the maximum allowed size of packet by sensor.
+        Gets the maximum allowed size of packet by sensor.
 
         @author: David Gilson <davgilson@live.fr>
 
@@ -1256,7 +1256,7 @@ class PyFingerprint(object):
 
     def downloadCharacteristics(self, charBufferNumber = 0x01):
         """
-        Download the finger characteristics of CharBuffer1 or CharBuffer2.
+        Downloads the finger characteristics of CharBuffer1 or CharBuffer2.
 
         @param integer(1 byte) charBufferNumber
 
