@@ -440,6 +440,7 @@ class PyFingerprint(object):
 
         ## DEBUG: Address set was successful
         if ( receivedPacketPayload[0] == FINGERPRINT_OK ):
+            self.__address = newAddress
             return True
 
         elif ( receivedPacketPayload[0] == FINGERPRINT_ERROR_COMMUNICATION ):
