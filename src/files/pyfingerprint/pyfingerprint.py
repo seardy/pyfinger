@@ -591,7 +591,7 @@ class PyFingerprint(object):
             for pageElement in pageElements:
                 ## Test every bit (bit = template position is used indicator) of a table page element
                 for p in range(0, 7 + 1):
-                    positionIsUsed = (__bitAtPosition(pageElement, p) == 1)
+                    positionIsUsed = (self.__bitAtPosition(pageElement, p) == 1)
                     templateIndex.append(positionIsUsed)
 
             return templateIndex
