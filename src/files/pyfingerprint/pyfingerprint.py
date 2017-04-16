@@ -997,19 +997,17 @@ class PyFingerprint(object):
         else:
             raise Exception('Unknown error')
 
-    def deleteTemplate(self, positionNumber):
+    def deleteTemplate(self, positionNumber, count = 1):
         """
-        Delete one template from fingerprint database.
+        Delete templates from fingerprint database. Per default one.
 
         @param integer(2 bytes) positionNumber
+        @param integer(2 bytes) count
         @return boolean
         """
 
         if ( positionNumber < 0x0000 or positionNumber >= self.getStorageCapacity() ):
             raise ValueError('The given position number is invalid!')
-
-        ## Delete only one template
-        count = 0x0001
 
         packetPayload = (
             FINGERPRINT_DELETETEMPLATE,
