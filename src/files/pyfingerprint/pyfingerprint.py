@@ -401,6 +401,7 @@ class PyFingerprint(object):
 
         ## DEBUG: Password set was successful
         if ( receivedPacketPayload[0] == FINGERPRINT_OK ):
+            self.__password = newPassword
             return True
 
         elif ( receivedPacketPayload[0] == FINGERPRINT_ERROR_COMMUNICATION ):
