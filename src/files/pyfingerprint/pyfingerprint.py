@@ -1033,6 +1033,9 @@ class PyFingerprint(object):
         elif ( receivedPacketPayload[0] == FINGERPRINT_ERROR_COMMUNICATION ):
             raise Exception('Communication error')
 
+        elif ( receivedPacketPayload[0] == FINGERPRINT_ERROR_INVALIDPOSITION ):
+            raise Exception('Invalid position')
+
         ## DEBUG: Could not delete template
         elif ( receivedPacketPayload[0] == FINGERPRINT_ERROR_DELETETEMPLATE ):
             return False
