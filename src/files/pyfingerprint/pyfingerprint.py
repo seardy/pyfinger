@@ -363,6 +363,9 @@ class PyFingerprint(object):
         elif ( receivedPacketPayload[0] == FINGERPRINT_ERROR_COMMUNICATION ):
             raise Exception('Communication error')
 
+        elif ( receivedPacketPayload[0] == FINGERPRINT_ADDRCODE ):
+            raise Exception('The address is wrong')
+
         ## DEBUG: Sensor password is wrong
         elif ( receivedPacketPayload[0] == FINGERPRINT_ERROR_WRONGPASSWORD ):
             return False
