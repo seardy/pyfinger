@@ -1011,8 +1011,13 @@ class PyFingerprint(object):
         @return boolean
         """
 
-        if ( positionNumber < 0x0000 or positionNumber >= self.getStorageCapacity() ):
+        capacity = self.getStorageCapacity()
+
+        if ( positionNumber < 0x0000 or positionNumber >= capacity ):
             raise ValueError('The given position number is invalid!')
+
+        if ( count < 0x0000 or count > capacity - positionNumber ):
+            raise ValueError('The given count is invalid!')
 
         packetPayload = (
             FINGERPRINT_DELETETEMPLATE,
