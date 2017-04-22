@@ -363,6 +363,9 @@ class PyFingerprint(object):
         elif ( receivedPacketPayload[0] == FINGERPRINT_ERROR_COMMUNICATION ):
             raise Exception('Communication error')
 
+        elif ( receivedPacketPayload[0] == FINGERPRINT_ADDRCODE ):
+            raise Exception('The address is wrong')
+
         ## DEBUG: Sensor password is wrong
         elif ( receivedPacketPayload[0] == FINGERPRINT_ERROR_WRONGPASSWORD ):
             return False
@@ -401,6 +404,7 @@ class PyFingerprint(object):
 
         ## DEBUG: Password set was successful
         if ( receivedPacketPayload[0] == FINGERPRINT_OK ):
+            self.__password = newPassword
             return True
 
         elif ( receivedPacketPayload[0] == FINGERPRINT_ERROR_COMMUNICATION ):
@@ -440,6 +444,7 @@ class PyFingerprint(object):
 
         ## DEBUG: Address set was successful
         if ( receivedPacketPayload[0] == FINGERPRINT_OK ):
+            self.__address = newAddress
             return True
 
         elif ( receivedPacketPayload[0] == FINGERPRINT_ERROR_COMMUNICATION ):
@@ -997,19 +1002,22 @@ class PyFingerprint(object):
         else:
             raise Exception('Unknown error')
 
-    def deleteTemplate(self, positionNumber):
+    def deleteTemplate(self, positionNumber, count = 1):
         """
-        Delete one template from fingerprint database.
+        Delete templates from fingerprint database. Per default one.
 
         @param integer(2 bytes) positionNumber
+        @param integer(2 bytes) count
         @return boolean
         """
 
-        if ( positionNumber < 0x0000 or positionNumber >= self.getStorageCapacity() ):
+        capacity = self.getStorageCapacity()
+
+        if ( positionNumber < 0x0000 or positionNumber >= capacity ):
             raise ValueError('The given position number is invalid!')
 
-        ## Delete only one template
-        count = 0x0001
+        if ( count < 0x0000 or count > capacity - positionNumber ):
+            raise ValueError('The given count is invalid!')
 
         packetPayload = (
             FINGERPRINT_DELETETEMPLATE,
@@ -1034,6 +1042,9 @@ class PyFingerprint(object):
 
         elif ( receivedPacketPayload[0] == FINGERPRINT_ERROR_COMMUNICATION ):
             raise Exception('Communication error')
+
+        elif ( receivedPacketPayload[0] == FINGERPRINT_ERROR_INVALIDPOSITION ):
+            raise Exception('Invalid position')
 
         ## DEBUG: Could not delete template
         elif ( receivedPacketPayload[0] == FINGERPRINT_ERROR_DELETETEMPLATE ):
