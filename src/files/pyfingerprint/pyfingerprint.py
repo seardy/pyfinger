@@ -371,7 +371,7 @@ class PyFingerprint(object):
             return False
 
         else:
-            raise Exception('Unknown error')
+            raise Exception('Unknown error '+ hex(receivedPacketPayload[0]))
 
     def setPassword(self, newPassword):
         """
@@ -411,7 +411,7 @@ class PyFingerprint(object):
             raise Exception('Communication error')
 
         else:
-            raise Exception('Unknown error')
+            raise Exception('Unknown error '+ hex(receivedPacketPayload[0]))
 
     def setAddress(self, newAddress):
         """
@@ -451,7 +451,7 @@ class PyFingerprint(object):
             raise Exception('Communication error')
 
         else:
-            raise Exception('Unknown error')
+            raise Exception('Unknown error '+ hex(receivedPacketPayload[0]))
 
     def setSystemParameter(self, parameterNumber, parameterValue):
         """
@@ -510,7 +510,7 @@ class PyFingerprint(object):
             raise Exception('Invalid register number')
 
         else:
-            raise Exception('Unknown error')
+            raise Exception('Unknown error '+ hex(receivedPacketPayload[0]))
 
     def getSystemParameters(self):
         """
@@ -558,7 +558,7 @@ class PyFingerprint(object):
             raise Exception('Communication error')
 
         else:
-            raise Exception('Unknown error')
+            raise Exception('Unknown error '+ hex(receivedPacketPayload[0]))
 
     def getTemplateIndex(self, page):
         """
@@ -605,7 +605,7 @@ class PyFingerprint(object):
             raise Exception('Communication error')
 
         else:
-            raise Exception('Unknown error')
+            raise Exception('Unknown error '+ hex(receivedPacketPayload[0]))
 
     def getTemplateCount(self):
         """
@@ -637,7 +637,7 @@ class PyFingerprint(object):
             raise Exception('Communication error')
 
         else:
-            raise Exception('Unknown error')
+            raise Exception('Unknown error '+ hex(receivedPacketPayload[0]))
 
     def readImage(self):
         """
@@ -674,7 +674,7 @@ class PyFingerprint(object):
             raise Exception('Could not read image')
 
         else:
-            raise Exception('Unknown error')
+            raise Exception('Unknown error '+ hex(receivedPacketPayload[0]))
 
     ## TODO:
     ## Implementation of uploadImage()
@@ -718,7 +718,7 @@ class PyFingerprint(object):
             raise Exception('Could not download image')
 
         else:
-            raise Exception('Unknown error')
+            raise Exception('Unknown error '+ hex(receivedPacketPayload[0]))
 
         ## Initialize image library
         resultImage = Image.new('L', (256, 288), 'white')
@@ -799,7 +799,7 @@ class PyFingerprint(object):
             raise Exception('The image is invalid')
 
         else:
-            raise Exception('Unknown error')
+            raise Exception('Unknown error '+ hex(receivedPacketPayload[0]))
 
     def createTemplate(self):
         """
@@ -834,7 +834,7 @@ class PyFingerprint(object):
             return False
 
         else:
-            raise Exception('Unknown error')
+            raise Exception('Unknown error '+ hex(receivedPacketPayload[0]))
 
     def storeTemplate(self, positionNumber = -1, charBufferNumber = 0x01):
         """
@@ -896,7 +896,7 @@ class PyFingerprint(object):
             raise Exception('Error writing to flash')
 
         else:
-            raise Exception('Unknown error')
+            raise Exception('Unknown error '+ hex(receivedPacketPayload[0]))
 
     def searchTemplate(self):
         """
@@ -953,7 +953,7 @@ class PyFingerprint(object):
             return (-1, -1)
 
         else:
-            raise Exception('Unknown error')
+            raise Exception('Unknown error '+ hex(receivedPacketPayload[0]))
 
     def loadTemplate(self, positionNumber, charBufferNumber = 0x01):
         """
@@ -1000,7 +1000,7 @@ class PyFingerprint(object):
             raise Exception('Could not load template from that position')
 
         else:
-            raise Exception('Unknown error')
+            raise Exception('Unknown error '+ hex(receivedPacketPayload[0]))
 
     def deleteTemplate(self, positionNumber, count = 1):
         """
@@ -1051,7 +1051,7 @@ class PyFingerprint(object):
             return False
 
         else:
-            raise Exception('Unknown error')
+            raise Exception('Unknown error '+ hex(receivedPacketPayload[0]))
 
     def clearDatabase(self):
         """
@@ -1085,7 +1085,7 @@ class PyFingerprint(object):
             return False
 
         else:
-            raise Exception('Unknown error')
+            raise Exception('Unknown error '+ hex(receivedPacketPayload[0]))
 
     def compareCharacteristics(self):
         """
@@ -1121,7 +1121,7 @@ class PyFingerprint(object):
             return 0
 
         else:
-            raise Exception('Unknown error')
+            raise Exception('Unknown error '+ hex(receivedPacketPayload[0]))
 
     def uploadCharacteristics(self, charBufferNumber = 0x01, characteristicsData = [0]):
         """
@@ -1173,7 +1173,7 @@ class PyFingerprint(object):
             raise Exception('Could not upload characteristics')
 
         else:
-            raise Exception('Unknown error')
+            raise Exception('Unknown error '+ hex(receivedPacketPayload[0]))
 
         ## Upload data packets
         packetNbr = len(characteristicsData) / maxPacketSize
@@ -1256,7 +1256,7 @@ class PyFingerprint(object):
             raise Exception('Communication error')
 
         else:
-            raise Exception('Unknown error')
+            raise Exception('Unknown error '+ hex(receivedPacketPayload[0]))
 
         number = 0
         number = number | self.__leftShift(receivedPacketPayload[1], 24)
@@ -1305,7 +1305,7 @@ class PyFingerprint(object):
             raise Exception('Could not download characteristics')
 
         else:
-            raise Exception('Unknown error')
+            raise Exception('Unknown error '+ hex(receivedPacketPayload[0]))
 
         completePayload = []
 
