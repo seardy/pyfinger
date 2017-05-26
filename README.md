@@ -65,8 +65,8 @@ Allow non-root user "pi" (replace it correctly) to use the serial port devices:
 
     ~$ python /usr/share/doc/python-fingerprint/examples/example_generaterandom.py
 
-## Questions
+## Further information
 
-If you have any questions to this project, just ask me via email:
+See my blog post for more information:
 
-<bastian.raschke@posteo.de>
+<https://sicherheitskritisch.de/2015/03/fingerprint-sensor-fuer-den-raspberry-pi-und-debian-linux-en/>
