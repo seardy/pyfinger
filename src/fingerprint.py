@@ -1,5 +1,5 @@
 import time
-from lib.pyfingerprint import PyFingerprint
+from pyfingerprint.pyfingerprint import PyFingerprint
 
 
 class Fingerprint:
