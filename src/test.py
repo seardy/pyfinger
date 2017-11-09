@@ -1,4 +1,4 @@
-from src.fingerprint import Fingerprint
+from fingerprint import Fingerprint
 
 fp = Fingerprint()
 fp.search()

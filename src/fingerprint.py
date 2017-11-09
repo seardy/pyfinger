@@ -1,10 +1,11 @@
 import time
 from pyfingerprint.pyfingerprint import PyFingerprint
-
+import paho.mqtt.client as paho
 
 class Fingerprint:
     
     sensor = None
+    client = paho.Client("sensor")
 
     def __init__(self):
         """
@@ -13,6 +14,7 @@ class Fingerprint:
         """
         try:
             self.sensor = PyFingerprint('/dev/ttyS0', 57600, 0xFFFFFFFF, 0x00000000)
+            self.client.connect("localhost")
 
             if not self.sensor.verifyPassword():
                 raise ValueError('The given fingerprint sensor password is wrong!')
@@ -25,11 +27,14 @@ class Fingerprint:
     def search(self):
         try:
             print('Waiting for finger...')
+            # Event waiting
+            self.client.publish("search/waiting", "ponga su huella")
 
             # Wait until a finger is read
             while not self.sensor.readImage():
                 pass
-
+            #Event processing 
+            self.client.publish("search/processing", "")
             # Converts read image to characteristics and stores it in char buffer 1
             self.sensor.convertImage(0x01)
 
@@ -45,14 +50,20 @@ class Fingerprint:
             if position_number == -1:
                 # Send signal to monitor app, to communicate has not been found.
                 print('No match found!')
+                #Event notFound
+                self.client.publish("search/notFound", "Not Found")
             else:
                 # Send signal to monitor app to communicate user found
                 # Send signal to Api to store Assistance.
+                #Event found
+	        self.client.publish("search/found", str(position_number))
                 print('Found template at position #' + str(position_number))
                 print('The accuracy score is: ' + str(accuracy_score))
         except Exception as e:
             print('Operation failed!')
             print('Exception message: ' + str(e))
+            #Event Error 
+            self.client.publish("search/error", "Operacion Fallida")
 
     def enroll(self):
         try:
