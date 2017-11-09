@@ -58,8 +58,10 @@ class Fingerprint:
                 # Send signal to monitor app to communicate user found
                 # Send signal to Api to store Assistance.
                 #Event found
-                marcar_asistencia(position_number)
-                self.client.publish("search/found", str(position_number))
+                if marcar_asistencia(position_number):
+                    self.client.publish("search/found", str(position_number))
+                else:
+                    self.client.publish("search/error", "Operacion Fallida")
                 print('Found template at position #' + str(position_number))
                 print('The accuracy score is: ' + str(accuracy_score))
         except Exception as e:
