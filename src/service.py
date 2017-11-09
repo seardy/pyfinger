@@ -12,13 +12,16 @@ def marcar_asistencia(id):
     hora = fecha.hour
     minutos = fecha.minute
 
-    found = user.aggregate([
-        {'$match': {'id': id}},
-        {'$unwind': "$regla"},
-        {'$match': {"regla.dia": dia}}
-    ])
+    user_exists = user.find_one({'id': id})
 
-    if found:
+    if user_exists:
+
+        found = user.aggregate([
+            {'$match': {'id': id}},
+            {'$unwind': "$regla"},
+            {'$match': {"regla.dia": dia}}
+        ])
+
         rules = list(found)
 
         # Creamos un vector para guardar los resultados
