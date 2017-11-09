@@ -2,6 +2,8 @@ import time
 from pyfingerprint.pyfingerprint import PyFingerprint
 import paho.mqtt.client as paho
 
+from service import marcar_asistencia
+
 class Fingerprint:
     
     sensor = None
@@ -56,7 +58,8 @@ class Fingerprint:
                 # Send signal to monitor app to communicate user found
                 # Send signal to Api to store Assistance.
                 #Event found
-	        self.client.publish("search/found", str(position_number))
+                marcar_asistencia(position_number)
+                self.client.publish("search/found", str(position_number))
                 print('Found template at position #' + str(position_number))
                 print('The accuracy score is: ' + str(accuracy_score))
         except Exception as e:
