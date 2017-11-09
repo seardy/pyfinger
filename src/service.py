@@ -3,7 +3,7 @@ from pymongo import MongoClient
 
 def marcar_asistencia(id):
     # Coleccion de datos de los empleados
-    mongo = MongoClient('mongodb://testing:test@ds155934.mlab.com:55934/testing_this_shit?authSource=admin')
+    mongo = MongoClient("mongodb://testing:test@ds155934.mlab.com:55934/testing_this_shit?authMechanism=SCRAM-SHA-1")
     user = mongo.db.users
     # Datos enviados en la peticion post para llenar la asistencia
     fecha = datetime.now()
