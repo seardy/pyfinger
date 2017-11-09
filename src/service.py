@@ -15,7 +15,6 @@ def marcar_asistencia(id):
     user_exists = user.find_one({'id': id})
 
     if user_exists:
-
         found = user.aggregate([
             {'$match': {'id': id}},
             {'$unwind': "$regla"},
@@ -86,7 +85,7 @@ def marcar_asistencia(id):
 
         # Guardar los cambios en la base de datos
         user.save(user_found)
+
+        return True
     else:
         return False
-
-
