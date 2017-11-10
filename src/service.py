@@ -88,7 +88,7 @@ def marcar_asistencia(id):
             user.save(user_found)
 
             return True
-        else
+        else:
             return False
     else:
         return False
