@@ -104,7 +104,7 @@ class Fingerprint:
                 cont += 1
                 pass
             if cont > 10:
-                print("Ábrete")
+                print("Abrete")
                 return
             # Event processing No 1
             self.client.publish("enroll/processing", "")
