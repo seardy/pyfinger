@@ -1,11 +1,12 @@
 from datetime import datetime, timedelta
 from pymongo import MongoClient
 
+# Coleccion de datos de los empleados
+mongo = MongoClient("mongodb://testing:test@ds155934.mlab.com:55934/testing_this_shit")
+db = mongo['testing_this_shit']
+user = db.users
+
 def marcar_asistencia(id):
-    # Coleccion de datos de los empleados
-    mongo = MongoClient("mongodb://testing:test@ds155934.mlab.com:55934/testing_this_shit")
-    db = mongo['testing_this_shit']
-    user = db.users
     # Datos enviados en la peticion post para llenar la asistencia
     fecha = datetime.now()
     dia = fecha.weekday()
@@ -21,7 +22,7 @@ def marcar_asistencia(id):
             {'$match': {"regla.dia": dia}}
         ])
 
-        if found:    
+        if  not found is None :
             rules = list(found)
 
             # Creamos un vector para guardar los resultados
@@ -87,8 +88,27 @@ def marcar_asistencia(id):
             # Guardar los cambios en la base de datos
             user.save(user_found)
 
-            return True
+            output =  {
+                    'name' : user_found['name'],
+                    'atiempo': atiempo
+                    }    
+            return output
         else:
             return False
     else:
         return False
+
+
+def registro(id,cc):
+    user.update(
+            {'identificacion': cc},
+            {'$set':{'id':id}}
+        )
+
+def eliminar(id):
+    des = -1
+    user.update(
+            {'id': id},
+            {'$set' : {'id' : des}}
+        )
+

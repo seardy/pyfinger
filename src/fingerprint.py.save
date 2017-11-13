@@ -1,3 +1,4 @@
+
 import time
 from pyfingerprint.pyfingerprint import PyFingerprint
 import paho.mqtt.client as paho
@@ -10,11 +11,6 @@ class Fingerprint:
     client = paho.Client("sensor")
     abort = False
 
-    def message(self, client, userdata, message):
-	print(message.topic)
-	if message.topic == "enroll/begin":
-		self.abort = True
-
     def __init__(self):
         """
 
@@ -23,8 +19,7 @@ class Fingerprint:
         try:
             self.sensor = PyFingerprint('/dev/ttyS0', 57600, 0xFFFFFFFF, 0x00000000)
             self.client.connect("localhost")
-	    #self.client.subscribe("enroll/begin")
-	    #self.client.on_message = self.message
+
             if not self.sensor.verifyPassword():
                 raise ValueError('The given fingerprint sensor password is wrong!')
 
@@ -41,7 +36,7 @@ class Fingerprint:
 
             # Wait until a finger is read
             while not self.sensor.readImage() and self.abort is False:
-		pass
+                pass
 
 	    # If abort 
 	    if self.abort is True:
@@ -88,7 +83,7 @@ class Fingerprint:
             self.client.publish("search/error", "Operacion Fallida")
             return 
 
-    def enroll(self, identificacion):
+    def enroll(self):
         try:
 	    self.abort = False
             print("Enroll: Waiting for finger...")
@@ -146,7 +141,7 @@ class Fingerprint:
             # Store and retrieve position
             position = self.sensor.storeTemplate()
 
-            registro(position, identificacion)
+            registro(position)
             # Send signal to show success in monitor
             print('Finger enrolled successfully!')
             #Event Operacion existosa
