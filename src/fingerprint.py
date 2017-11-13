@@ -42,9 +42,9 @@ class Fingerprint:
             # Wait until a finger is read
             while not self.sensor.readImage() and self.abort is False:
                 pass
-
             # If not abort
             if self.abort is False:
+                self.client.connect("localhost")
                 # Event processing
                 self.client.publish("search/processing", "")
 
