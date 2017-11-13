@@ -6,6 +6,7 @@ mongo = MongoClient("mongodb://testing:test@ds155934.mlab.com:55934/testing_this
 db = mongo['testing_this_shit']
 user = db.users
 
+
 def marcar_asistencia(id):
     # Datos enviados en la peticion post para llenar la asistencia
     fecha = datetime.now()
@@ -22,7 +23,7 @@ def marcar_asistencia(id):
             {'$match': {"regla.dia": dia}}
         ])
 
-        if  not found is None :
+        if not found is None:
             rules = list(found)
 
             # Creamos un vector para guardar los resultados
@@ -37,7 +38,7 @@ def marcar_asistencia(id):
                 now = datetime.now()
                 # Comparamos las dos
                 my_time = now.replace(hour=time_rule.time().hour, minute=time_rule.time().minute,
-                                    second=time_rule.time().second, microsecond=0)
+                                      second=time_rule.time().second, microsecond=0)
                 # Obtenemos la diferencia entre las dos horas.
                 diff = abs(my_time - now)
                 # Guardamos el id de la regla y el resultado en el vector
@@ -88,10 +89,10 @@ def marcar_asistencia(id):
             # Guardar los cambios en la base de datos
             user.save(user_found)
 
-            output =  {
-                    'name' : user_found['name'],
-                    'atiempo': atiempo
-                    }    
+            output = {
+                'name': user_found['name'],
+                'atiempo': atiempo
+            }
             return output
         else:
             return False
@@ -99,16 +100,16 @@ def marcar_asistencia(id):
         return False
 
 
-def registro(id,cc):
+def registro(id, cc):
     user.update(
-            {'identificacion': cc},
-            {'$set':{'id':id}}
-        )
+        {'identificacion': cc},
+        {'$set': {'id': id}}
+    )
+
 
 def eliminar(id):
     des = -1
     user.update(
-            {'id': id},
-            {'$set' : {'id' : des}}
-        )
-
+        {'id': id},
+        {'$set': {'id': des}}
+    )
