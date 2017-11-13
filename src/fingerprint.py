@@ -97,9 +97,9 @@ class Fingerprint:
 
             cont = 0
             # Block until finger is detected
-            while not self.sensor.readImage() or :
-                time.sleep(1)
-                cont += 1
+            while not self.sensor.readImage():
+                #time.sleep(1)
+                #cont += 1
                 pass
 
             # Event processing No 1
