@@ -43,44 +43,42 @@ class Fingerprint:
             while not self.sensor.readImage() and self.abort is False:
                 pass
 
-            # If abort
-            if self.abort is True:
-                return
-            # Event processing
-            self.client.publish("search/processing", "")
-            # Converts read image to characteristics and stores it in char buffer 1
-            self.sensor.convertImage(0x01)
+            # If not abort
+            if self.abort is False:
+                # Event processing
+                self.client.publish("search/processing", "")
 
-            # Search for template in Ox01
-            result = self.sensor.searchTemplate()
+                # Converts read image to characteristics and stores it in char buffer 1
+                self.sensor.convertImage(0x01)
 
-            # Position of the template found, if not found it's -1
-            position_number = result[0]
+                # Search for template in Ox01
+                result = self.sensor.searchTemplate()
 
-            # Accuracy of the search
-            accuracy_score = result[1]
+                # Position of the template found, if not found it's -1
+                position_number = result[0]
 
-            if position_number == -1:
-                # Send signal to monitor app, to communicate has not been found.
-                print('No match found!')
-                # Event notFound
-                self.client.publish("search/notFound", "Not Found")
-                return
-            else:
-                # Send signal to monitor app to communicate user found
-                # Send signal to Api to store Assistance.
-                # Event found
-                datos = marcar_asistencia(position_number)
+                # Accuracy of the search
+                accuracy_score = result[1]
 
-                if not datos is False:
-                    self.client.publish("search/found", json.dumps(datos))
-                    return
+                if position_number == -1:
+                    # Send signal to monitor app, to communicate has not been found.
+                    print('No match found!')
+                    # Event notFound
+                    self.client.publish("search/notFound", "Not Found")
                 else:
-                    # Arroja getitem
-                    self.client.publish("search/error", "Operacion Fallida")
-                    print('Found template at position #' + str(position_number))
-                    print('The accuracy score is: ' + str(accuracy_score))
-                    return
+                    # Send signal to monitor app to communicate user found
+                    # Send signal to Api to store Assistance.
+                    # Event found
+                    datos = marcar_asistencia(position_number)
+
+                    if not datos is False:
+                        self.client.publish("search/found", json.dumps(datos))
+                        return
+                    else:
+                        # Arroja getitem
+                        self.client.publish("search/error", "Operacion Fallida")
+                        print('Found template at position #' + str(position_number))
+                        print('The accuracy score is: ' + str(accuracy_score))
         except IOError as e:
             print("Cachado hijueputa")
             print(e.message)
@@ -89,7 +87,6 @@ class Fingerprint:
             print('Exception message: ' + str(e))
             # Event Error
             self.client.publish("search/error", "Operacion Fallida")
-            return
 
     def enroll(self, identificacion):
         try:
@@ -98,8 +95,11 @@ class Fingerprint:
             # Event waiting No 1
             self.client.publish("enroll/waiting", "Coloque su dedo indice")
 
+            cont = 0
             # Block until finger is detected
-            while not self.sensor.readImage():
+            while not self.sensor.readImage() or :
+                time.sleep(1)
+                cont += 1
                 pass
 
             # Event processing No 1
