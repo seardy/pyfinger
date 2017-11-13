@@ -81,6 +81,9 @@ class Fingerprint:
                     print('Found template at position #' + str(position_number))
                     print('The accuracy score is: ' + str(accuracy_score))
                     return
+        except IOError, e:
+            print("Cachado hijueputa")
+            print(e.message)
         except Exception as e:
             print('Operation failed!')
             print('Exception message: ' + str(e))
