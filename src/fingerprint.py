@@ -3,12 +3,14 @@ from pyfingerprint.pyfingerprint import PyFingerprint
 import paho.mqtt.client as paho
 import json
 from service import marcar_asistencia, registro, eliminar
+import threading
 
 
 class Fingerprint:
     sensor = None
     client = paho.Client("sensor")
     abort = False
+    cont = 0
 
     def message(self, client, userdata, message):
         print(message.topic)
@@ -90,6 +92,10 @@ class Fingerprint:
             # Event Error
             self.client.publish("search/error", "Operacion Fallida")
 
+    def timer(self):
+        while self.cont <= 10:
+            time.sleep(1)
+
     def enroll(self, identificacion):
         try:
             self.abort = False
@@ -99,9 +105,9 @@ class Fingerprint:
             self.client.publish("enroll/waiting", "Coloque su dedo indice")
             cont = 0
             # Block until finger is detected
-            while not self.sensor.readImage() or cont <= 10:
-                time.sleep(1)
-                cont += 1
+            timer_thread = threading.Thread(target=self.timer())
+            timer_thread.start()
+            while not self.sensor.readImage() or self.cont <= 10:
                 pass
             if cont > 10:
                 print("Abrete")
