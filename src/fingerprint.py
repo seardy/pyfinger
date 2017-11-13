@@ -43,7 +43,9 @@ class Fingerprint:
             while not self.sensor.readImage() and self.abort is False:
                 pass
             # If not abort
-            if self.abort is False:
+            if self.abort is True:
+                return
+            else:
                 self.client.connect("localhost")
                 # Event processing
                 self.client.publish("search/processing", "")
@@ -92,16 +94,18 @@ class Fingerprint:
         try:
             self.abort = False
             print("Enroll: Waiting for finger...")
+            self.client.connect("localhost")
             # Event waiting No 1
             self.client.publish("enroll/waiting", "Coloque su dedo indice")
-
             cont = 0
             # Block until finger is detected
-            while not self.sensor.readImage():
-                #time.sleep(1)
-                #cont += 1
+            while not self.sensor.readImage() or cont <= 10:
+                time.sleep(1)
+                cont += 1
                 pass
-
+            if cont > 10:
+                print("Ábrete")
+                return
             # Event processing No 1
             self.client.publish("enroll/processing", "")
             # Convert image to buffer for search if exists
