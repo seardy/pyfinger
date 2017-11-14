@@ -13,6 +13,10 @@ def on_message(client, userdata, message):
         global search_thread
         search_thread.join()
         fp.enroll(data['identificacion'])
+	if fp.abort:
+	  client.publish("enroll/abort","")
+	  client.publish("search/finished","")
+	  fp.abort = False
     if message.topic == "search/finished":
         search_thread = threading.Thread(target=fp.search)
         search_thread.start()

@@ -93,8 +93,8 @@ class Fingerprint:
             self.client.publish("search/error", "Operacion Fallida")
 
     def timer(self):
-        while self.cont <= 10:
-            time.sleep(1)
+        self.abort = True
+
 
     def enroll(self, identificacion):
         try:
@@ -105,13 +105,14 @@ class Fingerprint:
             self.client.publish("enroll/waiting", "Coloque su dedo indice")
             cont = 0
             # Block until finger is detected
-            timer_thread = threading.Thread(target=self.timer())
+            timer_thread = threading.Timer(10.00, self.timer)
             timer_thread.start()
-            while not self.sensor.readImage() or self.cont <= 10:
+            while not self.sensor.readImage() and not self.abort:
                 pass
-            if cont > 10:
+            if self.abort:
                 print("Abrete")
-                return
+                #self.client.publish("search/finished", "")
+		return
             # Event processing No 1
             self.client.publish("enroll/processing", "")
             # Convert image to buffer for search if exists
