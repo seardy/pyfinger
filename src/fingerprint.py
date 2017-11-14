@@ -178,6 +178,8 @@ class Fingerprint:
             self.client.publish("enroll/successful", "Operacion exitosa")
             # Send signal to backend for storing position
             print('New template position #' + str(position))
+	    timer_thread.cancel()
+	    timer.cancel()
 	    self.abort = False
         except Exception as e:
             print(str(e))
