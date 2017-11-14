@@ -10,7 +10,7 @@ class Fingerprint:
     sensor = None
     client = paho.Client("sensor")
     abort = False
-    cont = 0
+    #cont = 0
 
     def message(self, client, userdata, message):
         print(message.topic)
@@ -93,6 +93,8 @@ class Fingerprint:
             self.client.publish("search/error", "Operacion Fallida")
 
     def timer(self):
+	if self.abort:
+	   self.abort = False
         self.abort = True
 
     def enroll(self, identificacion):
@@ -102,7 +104,7 @@ class Fingerprint:
             self.client.connect("localhost")
             # Event waiting No 1
             self.client.publish("enroll/waiting", "Coloque su dedo indice")
-            cont = 0
+            #cont = 0
             # Block until finger is detected
             timer_thread = threading.Timer(10.00, self.timer)
             timer_thread.start()
@@ -111,8 +113,11 @@ class Fingerprint:
             if self.abort:
                 print("Abrete")
                 # self.client.publish("search/finished", "")
-                return
-            # Event processing No 1
+                #self.abort = False
+		return
+            
+	    #self.abort = False
+	    # Event processing No 1
             self.client.publish("enroll/processing", "")
             # Convert image to buffer for search if exists
             self.sensor.convertImage(0x01)
@@ -130,13 +135,14 @@ class Fingerprint:
 
                 # Send signal to remove finger
             print('Remove finger...')
-            time.sleep(2)
+            #time.sleep(2)
 
             # Send signal to put same finger
             print('Waiting for same finger again...')
             # Event waiting No 2
             self.client.publish("enroll/waiting", "Vuelva a colocar su dedo indice")
 
+	    timer_thread.cancel()
             timer = threading.Timer(10.00, self.timer)
             timer.start()
             # Block until finger is detected
@@ -144,7 +150,9 @@ class Fingerprint:
                 pass
 
             if self.abort:
-                return
+                #self.abort = False
+		timer.cancel()
+		return
             # Event processing No 2
             self.client.publish("enroll/processing", "")
 
@@ -170,15 +178,16 @@ class Fingerprint:
             self.client.publish("enroll/successful", "Operacion exitosa")
             # Send signal to backend for storing position
             print('New template position #' + str(position))
+	    self.abort = False
         except Exception as e:
             print(str(e))
 
     def delete(self, position):
         try:
-            result = self.sensor.deleteTemplate(position)
+            result = self.sensor.deleteTemplate(int(position))
             if result:
                 # Consumir evento en el test.py
-                eliminar(position)
+                eliminar(int(position))
                 # Send signal to backend that has been deleted correctly.
                 print('Template deleted!')
 

@@ -17,10 +17,16 @@ def on_message(client, userdata, message):
 	  client.publish("enroll/abort","")
 	  client.publish("search/finished","")
 	  fp.abort = False
+    if message.topic == "delete" :
+        fp.abort = True
+	global search_thread
+	search_thread.join()
+	fp.delete(message.payload)
+        client.publish("search/finished", "")
+	fp.abort = False
     if message.topic == "search/finished":
         search_thread = threading.Thread(target=fp.search)
         search_thread.start()
-
 
 fp = Fingerprint()
 client = paho.Client("routine")
@@ -28,4 +34,5 @@ client.connect("localhost")
 client.on_message = on_message
 client.subscribe("search/finished")
 client.subscribe("enroll/begin")
+client.subscribe("delete")
 client.loop_forever()
