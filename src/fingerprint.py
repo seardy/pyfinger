@@ -95,7 +95,6 @@ class Fingerprint:
     def timer(self):
         self.abort = True
 
-
     def enroll(self, identificacion):
         try:
             self.abort = False
@@ -111,8 +110,8 @@ class Fingerprint:
                 pass
             if self.abort:
                 print("Abrete")
-                #self.client.publish("search/finished", "")
-		return
+                # self.client.publish("search/finished", "")
+                return
             # Event processing No 1
             self.client.publish("enroll/processing", "")
             # Convert image to buffer for search if exists
@@ -138,10 +137,14 @@ class Fingerprint:
             # Event waiting No 2
             self.client.publish("enroll/waiting", "Vuelva a colocar su dedo indice")
 
+            timer = threading.Timer(10.00, self.timer)
+            timer.start()
             # Block until finger is detected
-            while not self.sensor.readImage():
+            while not self.sensor.readImage() and not self.abort:
                 pass
 
+            if self.abort:
+                return
             # Event processing No 2
             self.client.publish("enroll/processing", "")
 
