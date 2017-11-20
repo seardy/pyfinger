@@ -23,7 +23,7 @@ def marcar_asistencia(id):
             {'$match': {"regla.dia": dia}}
         ])
 
-        if not found is None:
+        if not (found is None):
             rules = list(found)
 
             # Creamos un vector para guardar los resultados
@@ -78,7 +78,8 @@ def marcar_asistencia(id):
 
             # Preparando la informacion a guardar
             asistencia = {
-                'fecha': fecha,
+                'fecha': fecha.strftime("%Y-%m-%d %H:%M"),
+		'hora':  fecha.strftime("%H:%M"),
                 'tipo': chosen_rule['tipo'],
                 'atiempo': atiempo
             }

@@ -1,5 +1,5 @@
 from fingerprint import Fingerprint
 
 fp = Fingerprint()
-fp.enroll()
+fp.clear_database()
 
